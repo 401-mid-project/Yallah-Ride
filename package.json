@@ -4,7 +4,8 @@
   "description": "You wanna Ride ? You wanna share your Ride ? what are you waiting for ? JOIN US NOW !!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint '**/*.js'"
   },
   "repository": {
     "type": "git",
