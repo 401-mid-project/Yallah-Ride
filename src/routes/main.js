@@ -3,6 +3,7 @@
 // 3d party dependencies
 const express = require('express');
 const router = express.Router();
+const app = express() ;
 const user = require('../models/users.js');
 const myAuth = require('../models/auth-middleware.js');
 
@@ -24,9 +25,14 @@ function signUp(req , res){
 
 // sign in route that takes name and pass and check if exist in DB through middleware myAuth()
 // if exist it will generate a token for it and return it with the req object
+
 router.post('/signin' , myAuth, signIn);
-function signIn (req , res){
-  res.status(200).send(req.token);
+function signIn (req , res , next){
+  app.set('userId', req.userId);
+  console.log(req.userId, 'woooooooooooooorked');
+  // router.get('/dashboard');
+  res.redirect(303 ,'/dashboard?userId=' + req.userId);
+  // next(res.redirect('/dashboard'));
 }
 
 

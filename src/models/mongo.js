@@ -15,14 +15,41 @@ module.exports = class Mongo {
     return newData.save();
   }
 
-  get(info){
-    if(info){
-      console.log('get hiii', info);
-      return this.schema.find(info.name);
+  get(data){
+    if(data){
+      console.log('true');
+
+      console.log('get hiii', data);
+      return this.schema.find({'info.name' : data });
+    }else{
+      console.log('false');
+      return this.schema.find({});
+    }
+  }
+
+  getById(id){
+    if(id){
+      console.log('Get DaTa', id);
+      return this.schema.find({_id : id});
     }else{
       return this.schema.find({});
     }
   }
+
+  // getByType(type){
+  //   if(type){
+  //     console.log('Get DaTa', type);
+  //     return this.schema.find({type});
+  //   }else{
+  //     return this.schema.find({});
+  //   }
+  // }
+
+
+
+
+
+
 
   update(_id , data){
     return this.schema.findByIdAndUpdate(_id , data , {new : true});
