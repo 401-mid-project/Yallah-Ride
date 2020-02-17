@@ -41,6 +41,7 @@ users.tokenGenerator = async function(data){
   
   
 users.basicAuth = async function(user , pass){
+  
   let fromDB = await Model.get(user);
   console.log('from db',fromDB);
   let check = await bcrypt.compare(pass , fromDB[0].info.password);
@@ -56,5 +57,31 @@ users.showAll = async function(){
   let result = Model.get() ;
   return result ;
 };
+
+
+// bearer authorization method that verifies the token
+users.tokenValidator= async function(token){
+
+  try {
+    console.log('tokenV try' ,typeof token);
+
+    let data = await jwt.verify(token , SECRET);
+    console.log('TV data', data);
+    let searchResult = await Model.get(data);
+    console.log('TV search result ', searchResult);
+
+    if(searchResult[0]){
+      console.log('if true');
+      return searchResult[0];
+    }else{
+      console.log('if false');
+      return 'ターゲットを見つけることができません';
+    }
+
+  }catch(err){
+    return Promise.reject(err); 
+  }
+};
+
   
 module.exports = users ;
