@@ -57,5 +57,31 @@ users.showAll = async function(){
   let result = Model.get() ;
   return result ;
 };
+
+
+// bearer authorization method that verifies the token
+users.tokenValidator= async function(token){
+
+  try {
+    console.log('tokenV try' ,typeof token);
+
+    let data = await jwt.verify(token , SECRET);
+    console.log('TV data', data);
+    let searchResult = await Model.get(data);
+    console.log('TV search result ', searchResult);
+
+    if(searchResult[0]){
+      console.log('if true');
+      return searchResult[0];
+    }else{
+      console.log('if false');
+      return 'ターゲットを見つけることができません';
+    }
+
+  }catch(err){
+    return Promise.reject(err); 
+  }
+};
+
   
 module.exports = users ;
