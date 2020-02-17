@@ -41,6 +41,7 @@ users.tokenGenerator = async function(data){
   
   
 users.basicAuth = async function(user , pass){
+  
   let fromDB = await Model.get(user);
   console.log('from db',fromDB);
   let check = await bcrypt.compare(pass , fromDB[0].info.password);
