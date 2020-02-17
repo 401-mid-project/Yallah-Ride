@@ -36,20 +36,6 @@ module.exports = class Mongo {
     }
   }
 
-  // getByType(type){
-  //   if(type){
-  //     console.log('Get DaTa', type);
-  //     return this.schema.find({type});
-  //   }else{
-  //     return this.schema.find({});
-  //   }
-  // }
-
-
-
-
-
-
 
   update(_id , data){
     return this.schema.findByIdAndUpdate(_id , data , {new : true});

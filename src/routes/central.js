@@ -3,21 +3,47 @@
 const express = require('express');
 const router = express.Router() ;
 const Model = require('../models/main-model.js');
+const bearerAuth = require('../models/bearer-Auth.js');
 
 
-router.get('/dashboard' , dashboard) ;
+router.get('/dashboard' ,bearerAuth , dashboard) ;
 
 async function dashboard(req ,res ,next){
-    
-  console.log(req.query.userId , '*********');
-
-  let scanResult = await Model.getById(req.query.userId);
+  console.log(req.userName._id , '************************');
+  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^', req.query.userId);
+  let scanResult = await Model.getById(req.userName._id);
   console.log(scanResult , 'dashboard');
-  res.status(200).send(`${scanResult} *************************************************` );
+  res.status(200).send(`${scanResult}`);
 }
 
 
-router.get('/pickups' , getAllPickUps);
+
+router.put('/dashboard/update' ,bearerAuth , updateDashboard) ;
+
+async function updateDashboard(req , res , next){
+  let id = req.userName._id;
+  let data = req.body ;
+  let updated = await Model.update(id , data);
+  res.status(201).send(updated);
+}
+
+
+router.delete('/dashboard/delete' ,bearerAuth , deleteDashboard) ;
+
+async function deleteDashboard(req , res , next){
+  let id = req.userName._id;
+  await Model.delete(id);
+  res.status(201).send('Deleted !!!');
+}
+
+
+
+
+
+
+
+
+router.get('/pickups' , bearerAuth,getAllPickUps);
 
 async function getAllPickUps(req , res ){
   let data = await Model.get();
@@ -25,17 +51,11 @@ async function getAllPickUps(req , res ){
 }
 
 
-router.get('/passengers' , getAllPassengers);
+router.get('/passengers' ,bearerAuth, getAllPassengers);
 
 async function getAllPassengers(req , res ){
   let data = await Model.get();
   res.status(200).send(data);
 }
-
-
-router.get('/testpage', (req, res) =>{
-  res.redirect('/testPage.html');
-});
-
 
 module.exports = router ;

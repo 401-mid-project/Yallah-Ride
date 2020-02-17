@@ -3,9 +3,10 @@
 // 3d party dependencies
 const express = require('express');
 const router = express.Router();
-const app = express() ;
+// const app = express() ;
 const user = require('../models/users.js');
 const myAuth = require('../models/auth-middleware.js');
+const bearerAuth = require('../models/bearer-Auth.js');
 
 
 // sign up route that takes name and pass then save them at the DB .
@@ -28,20 +29,19 @@ function signUp(req , res){
 
 router.post('/signin' , myAuth, signIn);
 function signIn (req , res , next){
-  app.set('userId', req.userId);
+
   console.log(req.userId, 'woooooooooooooorked');
-  // router.get('/dashboard');
-  res.redirect(303 ,'/dashboard?userId=' + req.userId);
-  // next(res.redirect('/dashboard'));
+  // res.redirect(303 ,'/dashboard?userId=' + req.userId);
+  res.send(req.token);
 }
 
 
 // router to show all the DB objects (users)
-router.get('/showall' , showMyUsers);
+router.get('/showall' , bearerAuth , showMyUsers);
 
 async function showMyUsers (req , res){
   let all = await user.showAll();
-  console.log('in show router', all);
+  // console.log('in show router', all);
   res.status(200).json(all);
 }
 
