@@ -33,9 +33,9 @@ async function getAllPassengers(req , res ){
 }
 
 
-router.get('/testpage', (req, res) =>{
-  res.redirect('/testPage.html');
-});
+// router.get('/testpage', (req, res) =>{
+//   res.redirect('/testPage.html');
+// });
 
 
 module.exports = router ;
