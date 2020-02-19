@@ -8,7 +8,7 @@ let users= {};
 const SECRET = 'Shushhhhh';
 
 users.save = async function (data){
-  console.log('data ****',data.info.name);
+  // console.log('data ****',data.info.name);
   let scanResult = await Model.get(data.info.name);
   console.log('after scan',scanResult);
   let search;
@@ -83,5 +83,33 @@ users.tokenValidator= async function(token){
   }
 };
 
-  
+
+// to check the response from facebook 
+users.checkAndSave = async function (data){
+  console.log(data);
+  // search in the DB for the user .
+  let scanResult = await Model.get(data.name);
+  console.log(scanResult);
+
+  // DB will return an array
+  let search;
+  let newData ;
+  if(scanResult[0]){
+    search =scanResult[0].name ;
+  }
+
+  if(!( search === data.name)){
+    // hash the password with bcrypt
+    data.password = await bcrypt.hash(data.id , 5);
+
+    newData = {info:{name: data.name , password: data.password}}; 
+    // adding the user data to the DB
+    await Model.create(newData);
+    return newData ;
+  }else{
+    return newData;
+  }
+};
+
+
 module.exports = users ;

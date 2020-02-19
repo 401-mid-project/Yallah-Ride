@@ -4,7 +4,7 @@
   "description": "You wanna Ride ? You wanna share your Ride ? what are you waiting for ? JOIN US NOW !!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose --coverage --detectOpenHandles ",
     "lint": "eslint '**/*.js'"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/401-mid-project/Yallah-Ride#readme",
   "dependencies": {
+    "@code-fellows/supergoose": "^1.0.1",
     "base-64": "^0.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -26,9 +27,9 @@
     "express": "^4.17.1",
     "jest": "^25.1.0",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^2.6.0",
     "mongoose": "^5.8.12",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2"
   }
 }

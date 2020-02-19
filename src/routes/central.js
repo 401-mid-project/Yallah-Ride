@@ -4,21 +4,21 @@ const express = require('express');
 const router = express.Router() ;
 const Model = require('../models/main-model.js');
 const bearerAuth = require('../models/bearer-Auth.js');
-
+const acl = require('../models/ACL-middleware.js');
 
 router.get('/dashboard' ,bearerAuth , dashboard) ;
 
 async function dashboard(req ,res ,next){
-  console.log(req.userName._id , '************************');
-  console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^', req.query.userId);
+  // console.log(req.userName._id , '************************');
+  // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^', req.query.userId);
   let scanResult = await Model.getById(req.userName._id);
-  console.log(scanResult , 'dashboard');
+  // console.log(scanResult , 'dashboard');
   res.status(200).send(`${scanResult}`);
 }
 
 
 
-router.put('/dashboard/update' ,bearerAuth , updateDashboard) ;
+router.put('/dashboard/update', bearerAuth , updateDashboard) ;
 
 async function updateDashboard(req , res , next){
   let id = req.userName._id;
@@ -37,13 +37,7 @@ async function deleteDashboard(req , res , next){
 }
 
 
-
-
-
-
-
-
-router.get('/pickups' , bearerAuth,getAllPickUps);
+router.get('/pickups' , bearerAuth , getAllPickUps);
 
 async function getAllPickUps(req , res ){
   let data = await Model.get();
@@ -51,11 +45,33 @@ async function getAllPickUps(req , res ){
 }
 
 
-router.get('/passengers' ,bearerAuth, getAllPassengers);
+router.get('/passengers' , bearerAuth , getAllPassengers);
 
 async function getAllPassengers(req , res ){
   let data = await Model.get();
   res.status(200).send(data);
 }
+
+
+
+//// =========> (ACL) <========== \\\\
+router.delete('/pickups/delete' , bearerAuth , acl('admin'), deletePickUps);
+
+async function deletePickUps(req , res ){
+  let data = await Model.delete(req._id);
+  res.status(200).send(data);
+}
+
+
+router.delete('/passengers/delete' , bearerAuth , acl('admin') , deletePassengers);
+
+async function deletePassengers(req , res ){
+  let data = await Model.delete(req._id);
+  res.status(200).send(data);
+}
+
+
+
+
 
 module.exports = router ;
