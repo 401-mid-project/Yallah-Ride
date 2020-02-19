@@ -5,10 +5,11 @@ const mongoose = require('mongoose');
 const mainSchema = mongoose.Schema({
   info: {
     name: { type: String, required: true },
-    gender: { type: String, required: true },
-    smoker: { type: Boolean, required: true},
+    gender: { type: String, required: false },
+    smoker: { type: Boolean, required: false},
     password: { type: String, required: true },
   },
+  license:['admin'] ,
     
   rider: {
     time:{type: String, required: false},
