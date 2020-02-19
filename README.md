@@ -112,6 +112,7 @@ This API adopts the Model View Controller(MVC) pattern.
 
 This is a server-side and client-side application, each using an architecture/framework that promotes maintainability, scalability, and collaboration. 
 
+
 The technologies that we have applied are node.js server, node.http module, express middleware, and a mongo database. Unix, Git, GitHub, ESLint, MongoDB, Heroku, Continuous integration, ES6, JSDoc, Swagger, Jest, Socket.IO, Express
 
 Concepts that we went through to fully understand how to program this application Concepts: Structural Design Patterns, Client / Server architecture, TCP and HTTP, NoSQL Databases, RESTful API, Authentication / Authorization, Data Modeling, Test-Driven Development, Behavior-Driven Development, Unit, Integration, and End-to-End Testing, Object-Oriented Programming, Functional Programming, Code Readability and Maintainability, Version Control, Continuous Integration and Deployment, Debugging, Web Sockets, Event-Driven Applications, Asynchronous Programming.
