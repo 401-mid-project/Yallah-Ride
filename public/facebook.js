@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 document.getElementById('loginbtn').addEventListener('click', loginWithFacebook, false);
@@ -5,7 +6,7 @@ document.getElementById('loginbtn').addEventListener('click', loginWithFacebook,
 
 window.fbAsyncInit = function() {
   FB.init({
-    appId      : '275747436730310',
+    appId      : '579002116290129',
     cookie     : true,
     xfbml      : true,
     version    : 'v6.0',
@@ -20,9 +21,7 @@ window.fbAsyncInit = function() {
   js = d.createElement(s); js.id = id;
   js.src = 'https://connect.facebook.net/en_US/sdk.js';
   fjs.parentNode.insertBefore(js, fjs);
-}
-
-(document, 'script', 'facebook-jssdk'));
+}(document, 'script', 'facebook-jssdk'));
 
 
 
