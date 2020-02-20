@@ -10,7 +10,9 @@ what are you waiting for ? JOIN US NOW !!
 ```js
 // clone this repository
 ~ git clone 
+```
 
+```js
 // cd into the project directory
 ~ cd Yallah-Ride
 ```
@@ -155,8 +157,12 @@ And then store it inside the schema:
     gender: { type: String, required: true },
     smoker: { type: Boolean, required: true},
     password: { type: String, required: true },
-  },
+  }
 ```
 Let's say the user already signed in now, it will first generate a token to allow it to access the routes inside the application, that he will be redirected to his own dashboard, where he can update his information using CRUD operations.
+
 And now he will be able to access route of the riders and drivers, also will be able to show all the requests from both sides: driver/rider side.
 
+The project does not necessarily needs a UI for this mean time, even though trying to experience the pleasure of posting a question of our own and to get responses and pulling helpful discussions as going through how to make that, emphasized and reaffirmed many conceptual aspects.
+
+![image info](./assets/aa.png)
