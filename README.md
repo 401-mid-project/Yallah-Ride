@@ -1,7 +1,9 @@
 # Yallah-Ride
 
-You wanna Ride? You wanna share your Ride?
-What are you waiting for? JOIN US NOW !!
+You wanna Ride?
+You wanna share your Ride?
+What are you waiting for?
+JOIN US NOW!!
 
 ## Getting Started
 
