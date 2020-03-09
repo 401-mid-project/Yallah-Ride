@@ -8,7 +8,7 @@ let users= {};
 const SECRET = 'Shushhhhh';
 
 users.save = async function (data){
-  // console.log('data ****',data.info.name);
+  console.log('data ****',data.info.name);
   let scanResult = await Model.get(data.info.name);
   console.log('after scan',scanResult);
   let search;
