@@ -13,13 +13,17 @@ const bearerAuth = require('../models/bearer-Auth.js');
 router.post('/signup' , signUp);
 function signUp(req , res){
 
+
+  console.log('received', req.body);
   return user.save(req.body)
     .then(data => {
+      if(!data) return {};
+
       console.log('after save **********', data);
-      return user.tokenGenerator(data);
+      return user.tokenGeneratorSignUp(data);
     })
     .then(data => {
-      res.status(200).send(`Areose Kid !  ${data}`);
+      res.status(200).send(data);
     });
 }
 
@@ -32,7 +36,9 @@ function signIn (req , res , next){
 
   console.log(req.userId, 'woooooooooooooorked');
   // res.redirect(303 ,'/dashboard?userId=' + req.userId);
-  res.send(req.token);
+  let data = {'token':req.token , 'id':req.userId};
+
+  res.send(data);
 }
 
 
@@ -44,6 +50,32 @@ async function showMyUsers (req , res){
   // console.log('in show router', all);
   res.status(200).json(all);
 }
+
+
+// to get the rides and drives
+router.get('/render' , bearerAuth , renderAll);
+
+async function renderAll (req , res){
+  let all = await user.showAll();
+  // console.log('in show router', all);
+  let rides = [] ;
+  let drives = [] ;
+
+  all.map(val => {
+    val.rides.map(val =>{
+      rides.push(val);
+    });
+
+    val.drives.map(val => {
+      drives.push(val);
+    });
+  });
+
+  let data = {'rides': rides , 'drives': drives};
+
+  res.status(200).json(data);
+}
+
 
 
 module.exports= router ;

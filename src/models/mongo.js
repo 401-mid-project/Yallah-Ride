@@ -41,6 +41,11 @@ module.exports = class Mongo {
     return this.schema.findByIdAndUpdate(_id , data , {new : true});
   }
 
+  // add offer to the array
+  addOffer(id , data){
+    return this.schema.findByIdAndUpdate({_id : id} , { $addToSet: { 'drives': data} });
+  }
+
   delete(_id){
     return this.schema.findOneAndDelete(_id);
   }

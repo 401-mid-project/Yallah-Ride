@@ -12,8 +12,8 @@ async function dashboard(req ,res ,next){
   // console.log(req.userName._id , '************************');
   // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^', req.query.userId);
   let scanResult = await Model.getById(req.userName._id);
-  // console.log(scanResult , 'dashboard');
-  res.status(200).send(`${scanResult}`);
+  console.log('dashboard' ,scanResult[0] ,  typeof scanResult[0]);
+  res.status(200).send(scanResult[0]);
 }
 
 
@@ -21,11 +21,30 @@ async function dashboard(req ,res ,next){
 router.put('/dashboard/update', bearerAuth , updateDashboard) ;
 
 async function updateDashboard(req , res , next){
+
   let id = req.userName._id;
   let data = req.body ;
+  // console.log('dashboard update******************************' ,id , data);
   let updated = await Model.update(id , data);
   res.status(201).send(updated);
 }
+
+
+// add to drive array
+router.put('/search/offer', bearerAuth , addOffer) ;
+
+async function addOffer(req , res , next){
+
+  let id = req.userName._id;
+  let data = req.body ;
+  console.log('*********offer form*********', data);
+  let updated = await Model.addOffer(id , data);
+  res.status(201).send(updated);
+}
+
+
+
+
 
 
 router.delete('/dashboard/delete' ,bearerAuth , deleteDashboard) ;
