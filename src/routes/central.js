@@ -42,6 +42,59 @@ async function addOffer(req , res , next){
   res.status(201).send(updated);
 }
 
+// add to rides array
+router.put('/search/ask', bearerAuth , addAsk) ;
+
+async function addAsk(req , res , next){
+  let id = req.userName._id;
+  let data = req.body ;
+  console.log('*********ask form*********', data);
+  let updated = await Model.addAsk(id , data);
+  res.status(201).send(updated);
+}
+
+
+
+// request Ask message
+router.put('/search/requestAsk', bearerAuth , requestAsk) ;
+
+async function requestAsk(req , res , next){
+
+  let message = req.body;
+  let id =message.userId;
+
+  await Model.addPendingMessages(req.userName._id , message);
+
+  message.userId = req.userName._id;
+  message.userName = req.userName.info.name;
+  console.log('bearer attach' , req.userName);
+
+  await Model.addAskMessage(id , message);
+
+  res.status(201).send('Done!');
+}
+
+
+// the user response for the ask request
+router.put('/askResponse', bearerAuth , askResponse) ;
+
+async function askResponse(req , res){
+
+  let data = req.body ;
+  console.log('ask response route' , data);
+
+  if(data.action === 'accept'){
+    await Model.updatePendingMessages( data.askId , 'accept');
+    await Model.updateAskBookedState(data.askId , 'true');
+    await Model.updateRidesBookedState(data.askId ,'true');
+  }else{
+    await Model.updatePendingMessages( data.askId , 'decline');
+  }
+
+  res.status(201).send('Done!');
+}
+
+
 
 
 

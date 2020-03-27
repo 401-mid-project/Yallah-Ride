@@ -12,7 +12,9 @@ const mainSchema = mongoose.Schema({
     password: { type: String, required: true },
   },
   license:['admin'] ,
-  messages:[] ,// in the search page ... { $addToSet: { <field1>: <value1>, ... } }
+  pendingMessages:[],
+  askMessages:[] ,// in the search page ... { $addToSet: { <field1>: <value1>, ... } }
+  offerMessages:[],
   rides: [],
   drives: [],
 });
