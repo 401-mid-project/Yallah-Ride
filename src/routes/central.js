@@ -42,6 +42,7 @@ async function addOffer(req , res , next){
   res.status(201).send(updated);
 }
 
+
 // add to rides array
 router.put('/search/ask', bearerAuth , addAsk) ;
 
@@ -53,15 +54,57 @@ async function addAsk(req , res , next){
   res.status(201).send(updated);
 }
 
+// request Offer message
+router.put('/search/requestOffer', bearerAuth , requestOffer) ;
+
+async function requestOffer(req , res ){
+
+  let message = req.body;
+  let id = message.userId;
+
+  await Model.addPendingMessages(req.userName._id , message);
+
+  message.userId = req.userName._id;
+  message.userName = req.userName.info.name;
+  console.log('bearer attach' , req.userName);
+
+  await Model.addOfferMessage(id , message);
+
+  res.status(201).send('Done!');
+}
 
 
+// the user response for the ask request
+router.put('/offerResponse', bearerAuth , offerResponse) ;
+
+async function offerResponse(req , res){
+
+  let data = req.body ;
+  let requestedId = req.userName._id;
+  console.log('Offer response route' , data);
+
+  if(data.action === 'accept'){
+    await Model.updatePendingMessagesOffer( data.offerId , 'accept');
+    await Model.updateOfferBookedState(data.offerId , 'true');
+    await Model.updateDrivesBookedState(data.offerId ,'true');
+  }else{
+    await Model.updatePendingMessagesOffer( data.offerId , 'decline');
+    let test = await Model.deleteOfferMessage(requestedId , data.offerId);
+    console.log('test', test);
+  }
+
+  res.status(201).send('Done!');
+}
+
+
+/////////////////
 // request Ask message
 router.put('/search/requestAsk', bearerAuth , requestAsk) ;
 
 async function requestAsk(req , res , next){
 
   let message = req.body;
-  let id =message.userId;
+  let id = message.userId;
 
   await Model.addPendingMessages(req.userName._id , message);
 
@@ -81,6 +124,7 @@ router.put('/askResponse', bearerAuth , askResponse) ;
 async function askResponse(req , res){
 
   let data = req.body ;
+  let requestedId = req.userName._id;
   console.log('ask response route' , data);
 
   if(data.action === 'accept'){
@@ -89,6 +133,8 @@ async function askResponse(req , res){
     await Model.updateRidesBookedState(data.askId ,'true');
   }else{
     await Model.updatePendingMessages( data.askId , 'decline');
+    let test = await Model.deleteAskMessage(requestedId , data.askId);
+    console.log('test', test);
   }
 
   res.status(201).send('Done!');
