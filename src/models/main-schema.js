@@ -5,33 +5,18 @@ const mongoose = require('mongoose');
 const mainSchema = mongoose.Schema({
   info: {
     name: { type: String, required: true },
+    firstName : { type: String, required: false },
+    lastName : { type: String, required: false },
     gender: { type: String, required: false },
-    smoker: { type: Boolean, required: false},
+    smoker: { type: String, required: false},
     password: { type: String, required: true },
   },
   license:['admin'] ,
-    
-  rider: {
-    time:{type: String, required: false},
-    cost: {type: Number, required: false},
-    dest: {
-      city: {type: String, required: false},
-      street: {type: String, required: false},
-    },
-  },
-
-  driver: {
-    time: {type: String, required: false},
-    cost: {type: Number, required: false},
-    dest: {
-      city: {type: String, required: false},
-      street: {type: String, required: false},
-    },
-    car_type: { type: String, required: false},
-    seats: { type: Number, required: false},
-  },
-
-
+  pendingMessages:[],
+  askMessages:[] ,// in the search page ... { $addToSet: { <field1>: <value1>, ... } }
+  offerMessages:[],
+  rides: [],
+  drives: [],
 });
 
 module.exports = mongoose.model('mainSchema', mainSchema);

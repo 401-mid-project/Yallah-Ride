@@ -8,9 +8,11 @@ let users= {};
 const SECRET = 'Shushhhhh';
 
 users.save = async function (data){
+
   console.log('data ****',data.info.name);
   let scanResult = await Model.get(data.info.name);
   console.log('after scan',scanResult);
+
   let search;
   if(scanResult[0]){
     search =scanResult[0].info.name ;
@@ -23,12 +25,13 @@ users.save = async function (data){
     data.info.password = await bcrypt.hash(data.info.password , 5);
     console.log('users after hashing');
 
-    await Model.create(data);
-    console.log('users after create');
-    return data ;
+    let dataBase = await Model.create(data);
+    console.log('users after create' , dataBase);
+
+    return dataBase ;
   }else{
     console.log('elseeeeeeeee works !!');
-    return data;
+    return null;
   }
 };
   
@@ -38,6 +41,13 @@ users.tokenGenerator = async function(data){
   let token = await jwt.sign(data.info.name , SECRET) ;
   return token ;
 };
+
+users.tokenGeneratorSignUp = async function(data){
+  let token = await jwt.sign(data.info.name , SECRET) ;
+  let returnedObject = {'token':token , 'id':data._id};
+  return returnedObject ;
+};
+
   
   
 users.basicAuth = async function(user , pass){
