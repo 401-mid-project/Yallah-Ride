@@ -19,7 +19,7 @@ what are you waiting for ? JOIN US NOW !!
 #### `.env` requirements (where applicable)
 
 - `PORT` - 3000
-- `MONGODB_URI` - mongodb://localhost:27017/please
+- `MONGODB_URI` - mongodb://localhost:27017/db-name
 
 #### How to initialize/run your application (where applicable)
 
