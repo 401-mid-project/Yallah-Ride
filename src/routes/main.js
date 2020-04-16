@@ -43,7 +43,7 @@ function signIn (req , res , next){
 
 
 // router to show all the DB objects (users)
-router.get('/showall' , bearerAuth , showMyUsers);
+router.get('/showall' , showMyUsers);
 
 async function showMyUsers (req , res){
   let all = await user.showAll();
