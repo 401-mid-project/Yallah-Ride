@@ -1,0 +1,36 @@
+{
+  "name": "Yallah-Ride",
+  "version": "1.0.0",
+  "description": "You wanna Ride ? You wanna share your Ride ? what are you waiting for ? JOIN US NOW !!",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage --detectOpenHandles ",
+    "lint": "eslint '**/*.js'",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/401-mid-project/Yallah-Ride.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/401-mid-project/Yallah-Ride/issues"
+  },
+  "homepage": "https://github.com/401-mid-project/Yallah-Ride#readme",
+  "dependencies": {
+    "@code-fellows/supergoose": "^1.0.1",
+    "base-64": "^0.1.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.1",
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2"
+  }
+}
